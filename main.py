@@ -310,7 +310,8 @@ def main(
                                 **sarp_params,
                             )
                     else:
-                        consistency_train_controller = consistency_store_controller
+                        if consistency_train_controller is None:
+                            consistency_train_controller = consistency_store_controller
                 else:
                     consistency_train_controller = None
 
