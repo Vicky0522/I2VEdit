@@ -464,7 +464,8 @@ class AttentionControlEdit(AttentionStore, abc.ABC):
 
             if mode == "masked_copy":
 
-                masks = rearrange(torch.cat(masks, 0), "b 1 (h w) 1 -> h (b w)", h=res*9)
+                #masks = rearrange(torch.cat(masks, 0), "b 1 (h w) 1 -> h (b w)", h=res*9)
+                masks = torch.cat(masks, 0)
                 #print(f"{place_in_unet}_masked_copy")
                 # save mask
                 _ = self.__call__(masks, is_cross, f"{place_in_unet}_mask")
@@ -573,7 +574,7 @@ class ConsistencyAttentionControl(AttentionStore, abc.ABC):
                  save_self_attention: bool=True,
                  save_latents: bool=True,
                  disk_store=False,
-                 store_path:str="./trash"
+                 store_path:str=None
                  ):
         super(ConsistencyAttentionControl, self).__init__(
             save_self_attention=save_self_attention,
